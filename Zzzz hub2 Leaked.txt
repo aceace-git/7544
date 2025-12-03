@@ -1,5 +1,5 @@
 --=========================================================
--- ZZZZ HUB 6 took 40 hours :D - OPTIMIZED VERSION
+-- EXECUTED HUB 6 took 40 hours :D - OPTIMIZED VERSION
 --=========================================================
 
 -- Anti-Skid Protection & Obfuscation (Optimized)
@@ -81,9 +81,9 @@ _G.checkExecutorSupport = function()
         gameHttpGet = game.HttpGet ~= nil
     }
     
-    print("🔍 Executor Compatibility Check:")
+    print("ðŸ” Executor Compatibility Check:")
     for feature, supported in pairs(_G.compatibility) do
-        print("  " .. (supported and "✄1�7" or "❄1�7") .. " " .. feature)
+        print("  " .. (supported and "âœ„1¤7" or "â„1¤7") .. " " .. feature)
     end
     
     return _G.compatibility
@@ -94,12 +94,12 @@ _G.EXECUTOR_SUPPORT = _G.checkExecutorSupport()
 -- Safe File Operations
 _G.safeWriteFile = function(path, content)
     if not _G.EXECUTOR_SUPPORT.writefile then
-        warn("❄1�7 writefile not supported on this executor")
+        warn("â„1¤7 writefile not supported on this executor")
         return false
     end
     local success, err = pcall(writefile, path, content)
     if not success then
-        warn("❄1�7 Failed to write file: " .. tostring(err))
+        warn("â„1¤7 Failed to write file: " .. tostring(err))
         return false
     end
     return true
@@ -107,12 +107,12 @@ end
 
 _G.safeReadFile = function(path)
     if not _G.EXECUTOR_SUPPORT.readfile then
-        warn("❄1�7 readfile not supported on this executor")
+        warn("â„1¤7 readfile not supported on this executor")
         return nil
     end
     local success, content = pcall(readfile, path)
     if not success then
-        warn("❄1�7 Failed to read file: " .. tostring(content))
+        warn("â„1¤7 Failed to read file: " .. tostring(content))
         return nil
     end
     return content
@@ -128,12 +128,12 @@ end
 
 _G.safeMakeFolder = function(path)
     if not _G.EXECUTOR_SUPPORT.makefolder then
-        warn("❄1�7 makefolder not supported on this executor")
+        warn("â„1¤7 makefolder not supported on this executor")
         return false
     end
     local success, err = pcall(makefolder, path)
     if not success then
-        warn("❄1�7 Failed to create folder: " .. tostring(err))
+        warn("â„1¤7 Failed to create folder: " .. tostring(err))
         return false
     end
     return true
@@ -142,12 +142,12 @@ end
 -- Safe Hidden Property Operations
 _G.safeSetHiddenProperty = function(instance, property, value)
     if not _G.EXECUTOR_SUPPORT.sethiddenproperty then
-        warn("❄1�7 sethiddenproperty not supported on this executor")
+        warn("â„1¤7 sethiddenproperty not supported on this executor")
         return false
     end
     local success, err = pcall(sethiddenproperty, instance, property, value)
     if not success then
-        warn("❄1�7 Failed to set hidden property: " .. tostring(err))
+        warn("â„1¤7 Failed to set hidden property: " .. tostring(err))
         return false
     end
     return true
@@ -155,12 +155,12 @@ end
 
 _G.safeGetHiddenProperty = function(instance, property)
     if not _G.EXECUTOR_SUPPORT.gethiddenproperty then
-        warn("❄1�7 gethiddenproperty not supported on this executor")
+        warn("â„1¤7 gethiddenproperty not supported on this executor")
         return nil
     end
     local success, value = pcall(gethiddenproperty, instance, property)
     if not success then
-        warn("❄1�7 Failed to get hidden property: " .. tostring(value))
+        warn("â„1¤7 Failed to get hidden property: " .. tostring(value))
         return nil
     end
     return value
@@ -190,7 +190,7 @@ _G.safeHttpGet = function(url)
             return response
         end
     else
-        warn("❄1�7 No HTTP GET method available on this executor")
+        warn("â„1¤7 No HTTP GET method available on this executor")
     end
     return nil
 end
@@ -949,9 +949,9 @@ _G.saveSettings = function()
         end
         local json = HttpService:JSONEncode(settings)
         if _G.safeWriteFile(SETTINGS_FILE, json) then
-        print("💾 Settings saved successfully")
+        print("ðŸ’¾ Settings saved successfully")
         else
-            print("❄1�7 Failed to save settings - using memory only")
+            print("â„1¤7 Failed to save settings - using memory only")
         end
     end)
 end
@@ -959,10 +959,10 @@ end
 _G.loadSettings = function()
     pcall(function()
         if _G.safeIsFile("ZZZZ_HUB_Settings.json") then
-            print("📁 Loading settings from file...")
+            print("ðŸ“ Loading settings from file...")
             local fileContent = _G.safeReadFile("ZZZZ_HUB_Settings.json")
             if not fileContent then
-                print("❄1�7 Failed to read settings file - using defaults")
+                print("â„1¤7 Failed to read settings file - using defaults")
                 return
             end
             local settings = HttpService:JSONDecode(fileContent)
@@ -1046,9 +1046,9 @@ _G.loadSettings = function()
                     RagdollDesync = settings.ToggleStates.RagdollDesync or false
                 }
             end
-            print("✄1�7 Settings loaded successfully!")
+            print("âœ„1¤7 Settings loaded successfully!")
         else
-            print("📁 No settings file found, using defaults")
+            print("ðŸ“ No settings file found, using defaults")
         end
     end)
 end
@@ -1208,10 +1208,10 @@ _G.saveUIState = function()
             if switch and switch.get then
                 _G.SavedToggleStates[stateName] = switch.get()
                 if stateName == "Rise" then
-                    print("💾 Saving Platform state:", switch.get())
+                    print("ðŸ’¾ Saving Platform state:", switch.get())
                 end
             elseif stateName == "Rise" then
-            print("⚠️ Platform switch not found for saving")
+            print("âš ï¸ Platform switch not found for saving")
         end
         end
         
@@ -1234,8 +1234,8 @@ _G.applyLoadedToggleStates = function()
         -- Add a short delay to ensure all switches are initialized (fix for re-execute timing)
         task.wait(0.5)
         
-        print("🔄 Restoring toggle states...")
-        print("📁 SavedToggleStates exists:", _G.SavedToggleStates ~= nil)
+        print("ðŸ”„ Restoring toggle states...")
+        print("ðŸ“ SavedToggleStates exists:", _G.SavedToggleStates ~= nil)
         
             -- Map toggle names to their actual get/set handlers so reopened toggles still function correctly
             local function resolveToggleHandlers(name)
@@ -1281,7 +1281,7 @@ _G.applyLoadedToggleStates = function()
             end
 
         if _G.SavedToggleStates then
-            print("📁 Found saved toggle states:", _G.SavedToggleStates)
+            print("ðŸ“ Found saved toggle states:", _G.SavedToggleStates)
             
             -- Optimized toggle restoration with table lookup
             local restoreMap = {
@@ -1316,7 +1316,7 @@ _G.applyLoadedToggleStates = function()
             -- Set switches to their saved states AND create side toggles
             for stateName, data in pairs(restoreMap) do
                 if data.switch and data.switch.set and _G.SavedToggleStates[stateName] then
-                    print("✄1�7 Setting " .. data.name .. " to enabled")
+                    print("âœ„1¤7 Setting " .. data.name .. " to enabled")
                     data.switch.set(true)
                     
                     -- Create side toggle for enabled switches
@@ -1324,15 +1324,15 @@ _G.applyLoadedToggleStates = function()
                     if getHandler and setHandler then
                         pcall(function()
                             _G.createCircularToggleUI(data.name, getHandler, setHandler)
-                            print("🎯 Created side toggle for: " .. data.name)
+                            print("ðŸŽ¯ Created side toggle for: " .. data.name)
                         end)
                     end
                 end
             end
         else
-            print("❄1�7 No saved toggle states found")
+            print("â„1¤7 No saved toggle states found")
         end
-        print("✄1�7 Toggle restoration complete!")
+        print("âœ„1¤7 Toggle restoration complete!")
         
         -- Restore UI state
         if CONFIG.UI.IsMinimized and mainFrame then
@@ -1362,11 +1362,11 @@ _G.applyLoadedToggleStates = function()
 
             -- Initialize other features after toggles are recreated. Wrap in pcalls to avoid aborting this thread.
         task.delay(2.0, function() -- Increased delay to ensure character is fully ready
-            print("🔄 Reinitializing enabled features...")
+            print("ðŸ”„ Reinitializing enabled features...")
             
             -- Wait for character to be fully loaded
             if not player.Character then
-                print("⏄1�7 Waiting for character to spawn...")
+                print("â„1¤7 Waiting for character to spawn...")
                 player.CharacterAdded:Wait()
             end
             
@@ -1374,7 +1374,7 @@ _G.applyLoadedToggleStates = function()
             
             pcall(function()
                 if _G.ESP_Enabled then 
-                    print("🔄 Reinitializing Player ESP...")
+                    print("ðŸ”„ Reinitializing Player ESP...")
                     enableESP() 
                     
                     -- Refresh Player ESP colors
@@ -1384,7 +1384,7 @@ _G.applyLoadedToggleStates = function()
                             pcall(function() 
                                 data.highlight.FillColor = CONFIG.ESP.PlayerESP.HighlightColor
                                 data.highlight.OutlineColor = CONFIG.ESP.PlayerESP.HighlightColor
-                                print("🎨 Refreshed Player ESP color for: " .. plr.Name)
+                                print("ðŸŽ¨ Refreshed Player ESP color for: " .. plr.Name)
                             end)
                         end
                     end
@@ -1393,56 +1393,56 @@ _G.applyLoadedToggleStates = function()
             
             pcall(function()
                 if _G.PlotESP_Enabled then 
-                    print("🔄 Reinitializing Plot ESP...")
+                    print("ðŸ”„ Reinitializing Plot ESP...")
                     enablePlotESP() 
                 end
             end)
             
             pcall(function()
                 if _G.PlotTimeESP_Enabled then 
-                    print("🔄 Reinitializing Plot Time ESP...")
+                    print("ðŸ”„ Reinitializing Plot Time ESP...")
                     enablePlotTimeESP() 
                 end
             end)
             
             pcall(function()
                 if CONFIG.ESP.BrainrotESP.Enabled then 
-                    print("🔄 Reinitializing Brainrot ESP...")
+                    print("ðŸ”„ Reinitializing Brainrot ESP...")
                     enableBrainrotESP() 
                 end
             end)
             
             pcall(function()
                 if _G.ServerHopActive then 
-                    print("🔄 Reinitializing Server Hop...")
+                    print("ðŸ”„ Reinitializing Server Hop...")
                     _G.toggleServerHop(true) 
                 end
             end)
             
             pcall(function()
                 if CONFIG.Movement.Float.Enabled and player.Character then 
-                    print("🔄 Reinitializing Float...")
+                    print("ðŸ”„ Reinitializing Float...")
                     enableFloat(player.Character) 
                 end
             end)
             
             pcall(function()
                 if CONFIG.Movement.Helicopter.Enabled and player.Character then 
-                    print("🔄 Reinitializing Helicopter...")
+                    print("ðŸ”„ Reinitializing Helicopter...")
                     enableHelicopter(player.Character) 
                 end
             end)
             
             pcall(function()
                 if CONFIG.AntiKick.Enabled then 
-                    print("🔄 Reinitializing Anti-Kick...")
+                    print("ðŸ”„ Reinitializing Anti-Kick...")
                     enableAntiKick() 
                 end
             end)
             
             pcall(function()
                 if _G.mobileDesyncEnabled then 
-                    print("🔄 Reinitializing Mobile Desync...")
+                    print("ðŸ”„ Reinitializing Mobile Desync...")
                     enableMobileDesync() 
                 end
             end)
@@ -1450,14 +1450,14 @@ _G.applyLoadedToggleStates = function()
                 -- Re-enable movement features
             pcall(function()
                 if _G.SavedToggleStates.Rise and player.Character then 
-                    print("🔄 Reinitializing Platform...")
+                    print("ðŸ”„ Reinitializing Platform...")
                     enablePlatform(player.Character) 
                 end
             end)
             
             pcall(function()
                 if _G.SavedToggleStates.Jump and player.Character and player.Character:FindFirstChildOfClass("Humanoid") then
-                    print("🔄 Reinitializing Jump Power...")
+                    print("ðŸ”„ Reinitializing Jump Power...")
                     local hum = player.Character:FindFirstChildOfClass("Humanoid")
                     hum.UseJumpPower = true
                     hum.JumpPower = CONFIG.Movement.JumpPower
@@ -1466,14 +1466,14 @@ _G.applyLoadedToggleStates = function()
             
             pcall(function()
                 if _G.SavedToggleStates.Speed and player.Character then 
-                    print("🔄 Reinitializing Speed...")
+                    print("ðŸ”„ Reinitializing Speed...")
                     enableSpeed(player.Character) 
                 end
             end)
             
             pcall(function()
                 if _G.SavedToggleStates.Invisibility and player.Character then 
-                    print("🔄 Reinitializing Invisibility...")
+                    print("ðŸ”„ Reinitializing Invisibility...")
                     task.wait(0.5) -- Wait for character to be ready
                     setInvisibility(true) 
                 end
@@ -1481,54 +1481,54 @@ _G.applyLoadedToggleStates = function()
             
             pcall(function()
                 if _G.SavedToggleStates.HeightBypass and player.Character then 
-                    print("🔄 Reinitializing Height Bypass...")
+                    print("ðŸ”„ Reinitializing Height Bypass...")
                     enableHeightBypass(player.Character) 
                 end
             end)
             
             pcall(function()
                 if _G.SavedToggleStates.TallMode and player.Character then 
-                    print("🔄 Reinitializing Tall Mode...")
+                    print("ðŸ”„ Reinitializing Tall Mode...")
                     enableTallMode(player.Character) 
                 end
             end)
             
             pcall(function()
                 if _G.SavedToggleStates.Fling and player.Character then 
-                    print("🔄 Reinitializing Fling...")
+                    print("ðŸ”„ Reinitializing Fling...")
                     enableFling(player.Character) 
                 end
             end)
             
             pcall(function()
                 if _G.SavedToggleStates.GrappleFlight and player.Character then 
-                    print("🔄 Reinitializing Grapple Flight...")
+                    print("ðŸ”„ Reinitializing Grapple Flight...")
                     enableGrappleFlight(player.Character) 
                 end
             end)
             
             pcall(function()
                 if _G.SavedToggleStates.InfiniteJump and player.Character then 
-                    print("🔄 Reinitializing Infinite Jump...")
+                    print("ðŸ”„ Reinitializing Infinite Jump...")
                     enableInfiniteJump(player.Character) 
                 end
             end)
             
             pcall(function()
                 if _G.SavedToggleStates.LaserCape and player.Character then 
-                    print("🔄 Reinitializing Laser Cape...")
+                    print("ðŸ”„ Reinitializing Laser Cape...")
                     enableLaserCape(player.Character) 
                 end
             end)
             
             pcall(function()
                 if _G.SavedToggleStates.RagdollDesync and player.Character then 
-                    print("🔄 Reinitializing Ragdoll Desync...")
+                    print("ðŸ”„ Reinitializing Ragdoll Desync...")
                     enableRagdollDesync(player.Character) 
                 end
             end)
             
-            print("✄1�7 Feature reinitialization complete!")
+            print("âœ„1¤7 Feature reinitialization complete!")
         end)
         end)
 end
@@ -1552,7 +1552,7 @@ local function getSafeUiParent()
     end
     
     -- Fallback to CoreGui if no safe UI is available
-    print("⚠️ Using CoreGui as UI parent - may be visible to others")
+    print("âš ï¸ Using CoreGui as UI parent - may be visible to others")
     return CoreGui
 end
 local safeui = getSafeUiParent()
@@ -1747,11 +1747,11 @@ local function setInvisibility(on)
     local success, _ = pcall(function()
         local currentCharacter = player.Character or character
         if not currentCharacter or not currentCharacter:FindFirstChild("Humanoid") then 
-            print("❄1�7 No character found for invisibility")
+            print("â„1¤7 No character found for invisibility")
             return 
         end
         
-        print("🔄 " .. (on and "Enabling" or "Disabling") .. " invisibility for character: " .. currentCharacter.Name)
+        print("ðŸ”„ " .. (on and "Enabling" or "Disabling") .. " invisibility for character: " .. currentCharacter.Name)
         
         if on then
             for _, v in pairs(currentCharacter:GetChildren()) do
@@ -1769,7 +1769,7 @@ local function setInvisibility(on)
                 end
             end
             
-            print("✄1�7 Invisibility enabled - player should be transparent")
+            print("âœ„1¤7 Invisibility enabled - player should be transparent")
         else
             for _, v in pairs(currentCharacter:GetChildren()) do
                 if v:IsA("BasePart") then
@@ -1785,7 +1785,7 @@ local function setInvisibility(on)
                 end
             end
             
-            print("❄1�7 Invisibility disabled - player should be visible")
+            print("â„1¤7 Invisibility disabled - player should be visible")
         end
     end)
     if not success then
@@ -2050,7 +2050,7 @@ title.Size = UDim2.new(1, 0, 1, 0)
 local settingsBtn = Instance.new("TextButton")
 settingsBtn.Parent = topBar
 settingsBtn.BackgroundColor3 = CONFIG.Colors.Background
-settingsBtn.Text = "⚄1�7"
+settingsBtn.Text = "âš„1¤7"
 settingsBtn.Font = Enum.Font.GothamBold
 settingsBtn.TextSize = 20
 settingsBtn.TextColor3 = CONFIG.Colors.Text
@@ -2062,7 +2062,7 @@ Instance.new("UICorner", settingsBtn).CornerRadius = UDim.new(0, 8)
 local minimizeBtn = Instance.new("TextButton")
 minimizeBtn.Parent = topBar
 minimizeBtn.BackgroundColor3 = CONFIG.Colors.Background
-minimizeBtn.Text = "∄1�7"
+minimizeBtn.Text = "âˆ„1¤7"
 minimizeBtn.Font = Enum.Font.GothamBold
 minimizeBtn.TextSize = 20
 minimizeBtn.TextColor3 = CONFIG.Colors.Text
@@ -2074,7 +2074,7 @@ Instance.new("UICorner", minimizeBtn).CornerRadius = UDim.new(0, 8)
 local closeBtn = Instance.new("TextButton")
 closeBtn.Parent = topBar
 closeBtn.BackgroundColor3 = CONFIG.Colors.Background
-closeBtn.Text = "×"
+closeBtn.Text = "Ã—"
 closeBtn.Font = Enum.Font.GothamBold
 closeBtn.TextSize = 20
 closeBtn.TextColor3 = CONFIG.Colors.Text
@@ -2156,7 +2156,7 @@ settingsTitle.Size = UDim2.new(1, -40, 1, 0)
 local settingsCloseBtn = Instance.new("TextButton")
 settingsCloseBtn.Parent = settingsTopBar
 settingsCloseBtn.BackgroundColor3 = CONFIG.Colors.Background
-settingsCloseBtn.Text = "×"
+settingsCloseBtn.Text = "Ã—"
 settingsCloseBtn.Font = Enum.Font.GothamBold
 settingsCloseBtn.TextSize = 20
 settingsCloseBtn.TextColor3 = CONFIG.Colors.Text
@@ -2613,7 +2613,7 @@ local function updateBillboard(plr, data)
         local targetRoot = data.billboard.Adornee
         if CONFIG.ESP.PlayerESP.ShowDistance and data.distanceLabel then
             local distance = (localRoot.Position - targetRoot.Position).Magnitude
-            data.distanceLabel.Text = string.format("📏 %.1f studs", distance)
+            data.distanceLabel.Text = string.format("ðŸ“ %.1f studs", distance)
         end
 
         if CONFIG.ESP.PlayerESP.ShowItems and data.iconFrame then
@@ -3190,7 +3190,7 @@ local function getServerList()
         local url = "https://games.roblox.com/v1/games/" .. placeId .. "/servers/Public?sortOrder=Asc&limit=100"
         local response = _G.safeHttpGet(url)
         if not response then
-            warn("❄1�7 Failed to fetch server list")
+            warn("â„1¤7 Failed to fetch server list")
             return {}
         end
         local parsed = HttpService:JSONDecode(response)
@@ -3789,13 +3789,13 @@ if player.Character and CONFIG.Movement.Float.Enabled then
 end
 
 if player.Character and CONFIG.Movement.Rise.Enabled then
-    print("🚀 Initializing Platform on existing character - CONFIG.Movement.Rise.Enabled:", CONFIG.Movement.Rise.Enabled)
+    print("ðŸš€ Initializing Platform on existing character - CONFIG.Movement.Rise.Enabled:", CONFIG.Movement.Rise.Enabled)
     task.spawn(function()
         task.wait(0.5) -- Wait for character to fully load
         enablePlatform(player.Character)
     end)
 else
-    print("⚠️ Platform not initialized - player.Character:", player.Character, "CONFIG.Movement.Rise.Enabled:", CONFIG.Movement.Rise.Enabled)
+    print("âš ï¸ Platform not initialized - player.Character:", player.Character, "CONFIG.Movement.Rise.Enabled:", CONFIG.Movement.Rise.Enabled)
 end
 
 
@@ -3939,7 +3939,7 @@ player.CharacterAdded:Connect(function(newCharacter)
             enableInfiniteJump() -- Apply to new character
         end
         if CONFIG.Movement.Rise.Enabled then
-            print("🔄 Enabling Platform on new character - CONFIG.Movement.Rise.Enabled:", CONFIG.Movement.Rise.Enabled)
+            print("ðŸ”„ Enabling Platform on new character - CONFIG.Movement.Rise.Enabled:", CONFIG.Movement.Rise.Enabled)
             enablePlatform(newCharacter) -- Apply to new character
         end
     end)
@@ -4431,7 +4431,7 @@ local function enablePlatform(character)
         -- Clean up on character death
         character:WaitForChild("Humanoid").Died:Connect(destroyPlatform)
         
-        print("✄1�7 Platform enabled")
+        print("âœ„1¤7 Platform enabled")
     end)
     
     if not success then
@@ -4443,7 +4443,7 @@ end
 local function disablePlatform()
     local success, err = pcall(function()
         destroyPlatform()
-        print("❄1�7 Platform disabled")
+        print("â„1¤7 Platform disabled")
     end)
     
     if not success then
@@ -4452,16 +4452,16 @@ local function disablePlatform()
 end
 
 local platformSwitch = createSwitch(_G.movementSection, "Platform", CONFIG.Movement.Rise.Enabled, function(on)
-    print("🔧 Platform switch toggled:", on)
+    print("ðŸ”§ Platform switch toggled:", on)
     CONFIG.Movement.Rise.Enabled = on
     _G.saveSettings()
     _G.SavedToggleStates.Rise = on
     if on then
         if player.Character then
-            print("✄1�7 Enabling Platform on existing character")
+            print("âœ„1¤7 Enabling Platform on existing character")
             enablePlatform(player.Character)
         else
-            print("⚠️ No character found, Platform will be enabled on next spawn")
+            print("âš ï¸ No character found, Platform will be enabled on next spawn")
         end
         -- Auto-create side toggle when enabled
         _G.createCircularToggleUI("Platform", function() return CONFIG.Movement.Rise.Enabled end, function(state)
@@ -4474,7 +4474,7 @@ local platformSwitch = createSwitch(_G.movementSection, "Platform", CONFIG.Movem
             end
         end)
     else
-        print("❄1�7 Disabling Platform")
+        print("â„1¤7 Disabling Platform")
         disablePlatform()
         -- Remove side toggle when disabled
         local existingToggle = _G.circularToggleGui:FindFirstChild("PlatformToggleUI")
@@ -5005,7 +5005,7 @@ _G.joinBiggestServer = function()
             end
         end
         if biggest then
-            print("🔄 Joining biggest server with " .. biggest.playing .. "/" .. biggest.maxPlayers .. " players")
+            print("ðŸ”„ Joining biggest server with " .. biggest.playing .. "/" .. biggest.maxPlayers .. " players")
             TeleportService:TeleportToPlaceInstance(game.PlaceId, biggest.id, player)
         else
             game.StarterGui:SetCore("SendNotification", {Title = "ZZZZ HUB", Text = "No available servers found!", Duration = 3})
@@ -5024,7 +5024,7 @@ _G.joinSmallestServer = function()
             end
         end
         if smallest then
-            print("🔄 Joining smallest server with " .. smallest.playing .. "/" .. smallest.maxPlayers .. " players")
+            print("ðŸ”„ Joining smallest server with " .. smallest.playing .. "/" .. smallest.maxPlayers .. " players")
             TeleportService:TeleportToPlaceInstance(game.PlaceId, smallest.id, player)
         else
             game.StarterGui:SetCore("SendNotification", {Title = "ZZZZ HUB", Text = "No available servers found!", Duration = 3})
@@ -5034,7 +5034,7 @@ end
 
 _G.rejoinServer = function()
     pcall(function()
-        print("🔄 Rejoining current server...")
+        print("ðŸ”„ Rejoining current server...")
         TeleportService:TeleportToPlaceInstance(game.PlaceId, _G.CurrentServerId, player)
     end)
 end
@@ -5060,7 +5060,7 @@ _G.toggleServerHop = function(on)
                         
                         if #validServers > 0 then
                             local target = validServers[math.random(1, #validServers)]
-                            print("🔄 Hopping to server with " .. target.playing .. "/" .. target.maxPlayers .. " players")
+                            print("ðŸ”„ Hopping to server with " .. target.playing .. "/" .. target.maxPlayers .. " players")
                             TeleportService:TeleportToPlaceInstance(game.PlaceId, target.id, player)
                         else
                             warn("No valid servers available for hopping")
@@ -5194,7 +5194,7 @@ playerColorButton.MouseButton1Click:Connect(function()
                 pcall(function() 
                     data.highlight.FillColor = CONFIG.ESP.PlayerESP.HighlightColor
                     data.highlight.OutlineColor = CONFIG.ESP.PlayerESP.HighlightColor
-                    print("🎨 Updated Player ESP color for: " .. plr.Name)
+                    print("ðŸŽ¨ Updated Player ESP color for: " .. plr.Name)
                 end)
             end
         end
@@ -5207,7 +5207,7 @@ playerColorButton.MouseButton1Click:Connect(function()
                     pcall(function()
                         existingHighlight.FillColor = CONFIG.ESP.PlayerESP.HighlightColor
                         existingHighlight.OutlineColor = CONFIG.ESP.PlayerESP.HighlightColor
-                        print("🎨 Updated existing highlight color for: " .. plr.Name)
+                        print("ðŸŽ¨ Updated existing highlight color for: " .. plr.Name)
                     end)
                 end
             end
@@ -5935,7 +5935,7 @@ local function enableMobileDesync()
 
         -- Execute desync immediately when enabled
         executeAntiHit()
-        print("✄1�7 Mobile Desync activated!")
+        print("âœ„1¤7 Mobile Desync activated!")
     end)
 end
 
@@ -5950,7 +5950,7 @@ local function disableMobileDesync()
         setfflag("ReplicatorAnimationTrackLimitPerAnimator", "10")
         setfflag("PhysicsSkipNonRealTimeHumanoidForceCalc2", "False")
         setfflag("WorldStepMax", -1)
-        print("❄1�7 Mobile Desync disabled - all flags reset!")
+        print("â„1¤7 Mobile Desync disabled - all flags reset!")
     end)
 end
 
@@ -5997,17 +5997,17 @@ createButton(_G.visualSection, "Delete Borders", function()
             borders = borders:FindFirstChild("Borders")
             if borders then
                 borders:Destroy()
-                print("✄1�7 Successfully deleted workspace.Map.Borders!")
+                print("âœ„1¤7 Successfully deleted workspace.Map.Borders!")
             else
-                warn("❄1�7 workspace.Map.Borders not found!")
+                warn("â„1¤7 workspace.Map.Borders not found!")
             end
         else
-            warn("❄1�7 workspace.Map not found!")
+            warn("â„1¤7 workspace.Map not found!")
         end
     end)
     
     if not success then
-        warn("❄1�7 Failed to delete borders: " .. tostring(err))
+        warn("â„1¤7 Failed to delete borders: " .. tostring(err))
     end
 end)
 
@@ -6024,18 +6024,18 @@ createButton(_G.visualSection, "Barrier Increase", function()
             for i, part in ipairs(parts) do
                 if part and part:IsA("BasePart") then
                     part.Size = Vector3.new(part.Size.X, part.Size.Y, 13)
-                    print("✄1�7 Successfully set Z-size to 13 for part at index: " .. tostring(i))
+                    print("âœ„1¤7 Successfully set Z-size to 13 for part at index: " .. tostring(i))
                 else
-                    warn("❄1�7 Part not found or invalid at index: " .. tostring(i))
+                    warn("â„1¤7 Part not found or invalid at index: " .. tostring(i))
                 end
             end
         else
-            warn("❄1�7 workspace.Map not found!")
+            warn("â„1¤7 workspace.Map not found!")
         end
     end)
     
     if not success then
-        warn("❄1�7 Failed to increase barrier sizes: " .. tostring(err))
+        warn("â„1¤7 Failed to increase barrier sizes: " .. tostring(err))
     end
 end)
 
@@ -6275,7 +6275,7 @@ local function enableRagdollDesync()
     end)
 
     debugPrint("Anti-ragdoll script fully activated")
-    print("✄1�7 Ragdoll Desync activated!")
+    print("âœ„1¤7 Ragdoll Desync activated!")
 end
 
 local function disableRagdollDesync()
@@ -6289,7 +6289,7 @@ local function disableRagdollDesync()
     end
     ragdollConnections = {}
     
-    print("❄1�7 Ragdoll Desync disabled!")
+    print("â„1¤7 Ragdoll Desync disabled!")
 end
 
 -- Add Ragdoll Desync to Movement section
@@ -6774,7 +6774,7 @@ minimizeBtn.MouseButton1Click:Connect(function()
         mainFrame.Size = isMinimized and CONFIG.UI.MinimizedSize or CONFIG.UI.FrameSize
         sidebar.Visible = not isMinimized
         contentArea.Visible = not isMinimized
-        minimizeBtn.Text = isMinimized and "+" or "∄1�7"
+        minimizeBtn.Text = isMinimized and "+" or "âˆ„1¤7"
     end)
     if not success then
         warn("Failed to toggle minimize state")
